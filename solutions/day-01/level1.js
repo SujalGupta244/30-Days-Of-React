@@ -1,27 +1,3 @@
-const countries = [
-    'Albania',
-    'Bolivia',
-    'Canada',
-    'Denmark',
-    'Ethiopia',
-    'Finland',
-    'Germany',
-    'Hungary',
-    'Ireland',
-    'Japan',
-    'Kenya',
-  ]
-  
-  const webTechs = [
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'React',
-    'Redux',
-    'Node',
-    'MongoDB',
-  ]
-
 const mixedDataTypes= ["dssdfds",23,true,343.7,`ssdfsl`,false]
 let count;
 let newArr = [];
