@@ -1,3 +1,4 @@
+// ARRAY LEVEL 1
 const mixedDataTypes= ["dssdfds",23,true,343.7,`ssdfsl`,false]
 let count;
 let newArr = [];
