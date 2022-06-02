@@ -155,8 +155,8 @@ const Number = ({num})=>{
 }
 
 const NumberGenerator = ({arr})=>{
-  const container = arr.map(num =>{
-    return <Number key={num} num={num}/>
+  const container = arr.map((num,index) =>{
+    return <Number key={index} num={num}/>
   })
   // return `#21BF73 - green  #FDDB3A - yellow  #FD5E53`;
   return (
@@ -166,7 +166,7 @@ const NumberGenerator = ({arr})=>{
 }
 const ColorGenerator = ({arr})=>{
   const container = arr.map(num =>{
-    return <HexaColor key={num} num={num}/>
+    return <HexaColor key={num+2} num={num}/>
   })
   // return `#21BF73 - green  #FDDB3A - yellow  #FD5E53`;
   return (
@@ -176,10 +176,10 @@ const ColorGenerator = ({arr})=>{
 }
 
 const Population = ({pop})=>{
-  console.log(pop);
+  // console.log(pop);
   const popu = pop.map(p =>{
     return (
-      <div>
+      <div key={p.population}>
         <div>{p.country}</div>
         <div style={{width: `${(p.population/pop[0].population)*100}%`, backgroundColor:'#FFA500'}}></div>
         <div>{p.population}</div>
@@ -193,34 +193,74 @@ const Population = ({pop})=>{
 }
 
 // Main Component
-const Main = () => {
-  const show = () =>{
+// const Main = (props) => {
+//   const show = () =>{
+//     alert("show me the meaning of being alone")
+//   }
+//   const arr = [];
+//   const arr2 = [];
+//   for(let i = 0;i<32;i++){
+//     arr.push(i);
+//     arr2.push(hexaColor())
+//   }
+//   return (
+//     <main>
+//       <div className='main-wrapper'>
+//         <p>Prerequisite to get started react.js:</p>
+//         <HexaColor/>
+//         <ul>
+//           <TechList />
+//         </ul>
+//         <UserCard />
+//         <User/>
+
+//       </div>
+//       {/* <Button click={show}/> */}
+//       <NumberGenerator arr={arr}/>
+//       <ColorGenerator arr={arr2}/>
+//       <Population pop={pop}/>
+//       <button onClick={props}>Color Change</button>
+//     </main>
+//   )
+// }
+class Main extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  show = () =>{
     alert("show me the meaning of being alone")
   }
-  const arr = [];
-  const arr2 = [];
-  for(let i = 0;i<32;i++){
-    arr.push(i);
-    arr2.push(hexaColor())
+  arr = [];
+  arr2 = [];
+  addEle(){
+    for(let i = 0;i<32;i++){
+      this.arr.push(i);
+      this.arr2.push(hexaColor())
+    }
   }
-  return (
-    <main>
-      <div className='main-wrapper'>
-        <p>Prerequisite to get started react.js:</p>
-        <HexaColor/>
-        <ul>
-          <TechList />
-        </ul>
-        <UserCard />
-        <User/>
-
-      </div>
-      {/* <Button click={show}/> */}
-      <NumberGenerator arr={arr}/>
-      <ColorGenerator arr={arr2}/>
-      <Population pop={pop}/>
-    </main>
-  )
+  
+  render(){
+    this.addEle()
+    return (
+      <main>
+        <div className='main-wrapper'>
+          <p>Prerequisite to get started react.js:</p>
+          <HexaColor/>
+          <ul>
+            <TechList />
+          </ul>
+          <UserCard />
+          <User/>
+  
+        </div>
+        {/* <Button click={show}/> */}
+        <NumberGenerator arr={this.arr}/>
+        <ColorGenerator arr={this.arr2}/>
+        <Population pop={pop}/>
+        <button onClick={this.props.color}>Color Change</button>
+      </main>
+    )
+  }
 }
 
 // Footer Component
@@ -244,14 +284,37 @@ const Footer = () => {
 
 }
 // The App, or the parent or the container component
-const App = () => (
-  <div className='app'>
-    <Header />
-    <Heade/>
-    <Main />
-    <Footer />
-  </div>
-)
+// const App = () => (
+//   <div className='app'>
+//     <Header />
+//     <Heade/>
+//     <Main />
+//     <Footer />
+//   </div>
+// )
+class App extends React.Component{
+  state = {
+    color:"#fff"
+  }
+  changeColor = ()=>{
+    let color = this.state.color === "#0F172A" ? '#fff': "#0F172A";  
+    this.setState({color})
+    // console.log(this.state.color);
+  }
+  render(){
+    return(
+      <div className='app' style={{backgroundColor: this.state.color}}>
+        <Header />
+        <Heade/>
+        <Main color={this.changeColor}/>
+        <Footer />
+      </div>
+    )
+
+  }
+
+}
+
 
 // const header = (
 //   <header>
