@@ -257,7 +257,8 @@ class Main extends React.Component{
         <NumberGenerator arr={this.arr}/>
         <ColorGenerator arr={this.arr2}/>
         <Population pop={pop}/>
-        <button onClick={this.props.color}>Color Change</button>
+        <h2>{this.props.season}</h2>
+        <button onClick={this.props.changeColor}>Color Change</button>
       </main>
     )
   }
@@ -292,21 +293,87 @@ const Footer = () => {
 //     <Footer />
 //   </div>
 // )
+
+const LoginForm =(props)=>{
+  return (
+    <>
+    {props.log ? <h2>Logout</h2>:<h2>Please Login</h2>} 
+    <button onClick={props.onClick} >{props.text}</button>
+    {!props.log && (
+          <p>
+            Please login to access more information about 30 Days Of React
+            challenge
+          </p>
+        )}
+    </>
+  )
+}
+
+const Loader = (props)=>{
+  let loader = props.load ? <h2>Loading Your website</h2> : <h2>Your website is loaded</h2>;
+  console.log(props);
+  return (
+    <>
+      {loader}
+      <button onClick={props.onClick}>{props.load ? "Load" : "Unload"}</button>
+    </>
+  )
+}
+
+
+
+
 class App extends React.Component{
   state = {
-    color:"#fff"
+    color:"#fff",
+    loggedIn: false,
+    season : "autum",
+    count : 0,
+    loading : true
   }
   changeColor = ()=>{
-    let color = this.state.color === "#0F172A" ? '#fff': "#0F172A";  
-    this.setState({color})
-    // console.log(this.state.color);
+    const arr = ["autum","winter","spring","summer"];
+    const colors = ["#fff","#eee","#ddd","#aaa"];
+    // let newCount = this.state.count < arr.length ? this.state.count + 1 : 0 ;
+    // let season = this.state.season;
+    // let color = this.state.color ;  
+    // let color = this.state.color === "#0F172A" ? '#fff': "#0F172A";  
+    this.setState(previousState => {
+      return {
+        count: previousState.count < arr.length ? previousState.count + 1 : 0,
+        color : colors[this.state.count],
+        season : arr[this.state.count]
+
+      }
+    })
+    // this.setState({
+      // count : newCount,
+      // color : colors[this.state.count],
+      // season : arr[this.state.count]
+    // })
+    console.log(this.state.count);
+  }
+
+  loading = () => {
+    setTimeout(()=>{
+      this.setState({
+       loading : !this.state.loading 
+      })
+    },2000)
+  }
+  handleLogin = ()=>{
+    this.setState({
+      loggedIn: !this.state.loggedIn,
+    })
   }
   render(){
     return(
       <div className='app' style={{backgroundColor: this.state.color}}>
         <Header />
         <Heade/>
-        <Main color={this.changeColor}/>
+        <Main changeColor={this.changeColor} season={this.state.season}/>
+        <LoginForm log={this.state.loggedIn} onClick={this.handleLogin} text={this.state.loggedIn ? "Logout": "Login"}/>
+        <Loader onClick={this.loading} load={this.state.loading}/>
         <Footer />
       </div>
     )
