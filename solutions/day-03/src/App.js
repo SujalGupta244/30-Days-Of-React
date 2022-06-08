@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
 import frontend from './images/Frontend_technologies.png';
@@ -39,7 +39,7 @@ const Header = () => {
     <Skills skills={skills}/>
   </header>)
 }
-class Heade extends React.Component {
+class Heade extends Component {
   constructor(props) {
     super(props)
   }
@@ -82,7 +82,7 @@ const UserCard = () => {
   </div>)
 }
 
-class User extends React.Component{
+class User extends Component{
   constructor(props){
     super(props)
   }
@@ -223,7 +223,7 @@ const Population = ({pop})=>{
 //     </main>
 //   )
 // }
-class Main extends React.Component{
+class Main extends Component{
   constructor(props){
     super(props)
   }
@@ -323,7 +323,7 @@ const Loader = (props)=>{
 
 
 
-class App extends React.Component{
+class App extends Component{
   state = {
     color:"#fff",
     loggedIn: false,
