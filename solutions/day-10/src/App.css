@@ -1,0 +1,147 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+body{
+  font-family: sans-serif;
+}
+
+li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+.header{
+  width: 100%;
+  background-color: #031430;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.logo{
+  color: #fff;
+  cursor: pointer;
+}
+
+.navbar{
+  width: 40%;
+}
+
+.navList{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navList li a{
+  color: #fff;
+  cursor: pointer;
+}
+
+
+/* Hero */
+
+
+.hero{
+  width: 100%;
+  height: calc(100vh - 59px);
+  /* opacity: 0.6; */
+  background: linear-gradient(rgba(3, 20, 48, 0.1),rgba(3, 20, 48, 0.9)),url("./images/coding3.jpg") center/cover no-repeat;
+}
+
+
+.hero-detail{
+  height: 60vh;
+  width: 50%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 16rem;
+  padding-top: 16rem;
+  color: #fff;
+}
+
+.hero-detail h2{
+  font-size: 6rem;
+  width: 60%;
+  margin-bottom: 2rem;
+}
+
+.hero-detail h3{
+  font-size: 4rem;
+  width: 50%;
+  padding-bottom: 2rem;
+}
+
+.hero-btn button{
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
+
+.hero-btn button:nth-child(1){
+  background-color: #EF5727;
+  margin-right: 2rem;
+}
+
+.hero-btn button:hover{
+  opacity: 0.8;
+}
+
+
