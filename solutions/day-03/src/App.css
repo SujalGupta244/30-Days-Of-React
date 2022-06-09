@@ -167,3 +167,21 @@ li{
 .pop > div > div:nth-child(3){
   text-align: center;
 }
+
+.empty{
+  width: 100%;
+  height: 100vh;
+  /* overflow: hidden; */
+}
+
+.empText{
+  background-color: #61dafb;
+  color: #282c34;
+  display: inline-block;
+  padding: 1rem;
+  font-size: 2rem;
+  text-shadow: 0 0.1rem 0.2rem rgb(233, 94, 94);
+  text-transform: capitalize;
+  cursor: pointer;
+  /* transform: translate(12%,34%); */
+}

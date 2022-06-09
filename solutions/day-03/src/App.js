@@ -311,7 +311,7 @@ const LoginForm =(props)=>{
 
 const Loader = (props)=>{
   let loader = props.load ? <h2>Loading Your website</h2> : <h2>Your website is loaded</h2>;
-  console.log(props);
+  // console.log(props);
   return (
     <>
       {loader}
@@ -375,11 +375,48 @@ class App extends Component{
         <LoginForm log={this.state.loggedIn} onClick={this.handleLogin} text={this.state.loggedIn ? "Logout": "Login"}/>
         <Loader onClick={this.loading} load={this.state.loading}/>
         <Footer />
+        <EmptyArea/>
       </div>
     )
-
   }
+}
 
+
+
+
+class EmptyArea extends Component {
+
+  state ={
+    x: 12,
+    y: 34
+  }
+  moveElm = ()=>{
+    let x = 0;
+    let y = 0;
+    if((Math.random() * window.innerWidth) < window.innerWidth - 22){
+      x =  Math.random() * window.innerWidth;
+    }else{
+      x = 0;
+    }
+    if((Math.random() * window.innerHeight) < window.innerHeight){
+      y = Math.random() * window.innerHeight;
+    }else{
+      y = 0;
+    }
+    this.setState({
+      x: x,
+      y: y
+    })
+    console.log(this.state.x,this.state.y,this.height);
+  }
+  render (){
+    return (
+      <div className="empty">
+        <h2 className="empText" onMouseMove={this.moveElm} 
+        style={{transform:`translate(${this.state.x}px,${this.state.y}px)`}}>30 days of React</h2>
+      </div>
+    )
+  }
 }
 
 
