@@ -374,8 +374,9 @@ class App extends Component{
         <Main changeColor={this.changeColor} season={this.state.season}/>
         <LoginForm log={this.state.loggedIn} onClick={this.handleLogin} text={this.state.loggedIn ? "Logout": "Login"}/>
         <Loader onClick={this.loading} load={this.state.loading}/>
+        <InputField/>  
         <Footer />
-        <EmptyArea/>
+        {/* <EmptyArea/> */}
       </div>
     )
   }
@@ -415,6 +416,183 @@ class EmptyArea extends Component {
         <h2 className="empText" onMouseMove={this.moveElm} 
         style={{transform:`translate(${this.state.x}px,${this.state.y}px)`}}>30 days of React</h2>
       </div>
+    )
+  }
+}
+
+const options = [
+  {
+    value: '',
+    label: '--select--'
+  },
+  {
+    value: 'India',
+    label: 'India'
+  },
+  {
+    value: 'Finland',
+    label: 'Finland'
+  },
+  {
+    value: 'USA',
+    label: 'USA'
+  }
+]
+
+const selectOptions = options.map(({value,label})=>{
+  return <option value={value} key={label}>{label}</option>
+})
+
+class InputField extends Component{
+  state = {
+    firstName: '',
+    country:'',
+    gender: '',
+    file:'',
+    skills:{
+      html: false,
+      css : false,
+      js: false
+    },
+    touched: {
+      firstName: false,
+      lastName: false,
+      country: false,
+      gender:false,
+      file:'',
+    }
+  }
+
+  handleChange = (e)=>{
+    const {name, value, type, checked} = e.target;
+
+    if(type === 'checkbox'){
+      this.setState({
+        skills: {...this.state.skills,[name]: checked}
+      })
+    }else {
+      this.setState({[name]: value})
+    }
+
+  }
+
+  handleBlur = (e) => {
+    const { name } = e.target
+    this.setState({ touched: { ...this.state.touched, [name]: true } })
+  }
+
+  validate = ()=>{
+    const errors = {
+      firstName: "",
+      lastName: '',
+      country: '',
+      gender: '',
+    }
+
+    if (
+      (this.state.touched.firstName && this.state.firstName.length < 3) ||
+      (this.state.touched.firstName && this.state.firstName.length > 12)
+    ) {
+      errors.firstName = 'First name must be between 3 and 12'
+    }
+    else if(
+      (this.state.touched.lastName && this.state.lastName.length < 3) ||
+      (this.state.touched.lastName && this.state.lastName.length > 12)
+      ){
+        errors.lastName = 'Last name must be between 3 and 12'
+      }
+      else if(
+        (!this.state.touched.country  && this.state.country === ''))
+        {
+        errors.country = 'select your country!'
+      }
+      else if(
+        (!this.state.touched.gender && this.state.gender === ''))
+        {
+        errors.gender = 'select your gender !'
+      }
+    return errors;
+
+  }
+
+  handleSubmit = (e)=>{
+    e.preventDefault()
+    const {
+      firstName,
+      country,
+      gender,
+      skills,
+      file
+    } = this.state;
+
+    const formattedSkills = []
+    for (const key in skills) {
+      console.log(key)
+      if (skills[key]) {
+        formattedSkills.push(key.toUpperCase())
+      }
+    }
+
+    const data = {
+      firstName,
+      country,
+      gender,
+      file,
+      skills: formattedSkills
+    }
+
+    console.log(data);
+  }
+
+  render(){
+    const { firstName, country, gender, file } = this.state;
+
+    const {firstName: firstNam, country : countr, gender : gende} = this.validate();
+
+    return(
+        <div className="inp">
+          <form onSubmit={this.handleSubmit}>
+          <input type="text" onChange={this.handleChange} onBlur={this.handleBlur} placeholder="First Name" name='firstName' value={firstName} /><br/>
+          <small>{firstNam}</small>
+          <br />
+          <select name="country" id="" onChange={this.handleChange} value={country}>
+            {selectOptions}
+          </select>
+          <br />
+          <small>{countr}</small>
+          <br />
+
+          <div className="form-control">
+          <p>Select Your Gender</p>
+            <input type="radio" name="gender" id="Male" value='Male' checked={gender ==='Male'} onChange={this.handleChange} />
+            <label htmlFor="Male">Male</label>
+          </div>
+          <div className="form-control">
+            <input type="radio" name="gender" id="Female" value='Female' checked={gender ==='Female'} onChange={this.handleChange}/>
+            <label htmlFor="Female">Female</label>
+          </div>
+          <div className="form-control">
+            <input type="radio" name="gender" id="Other" value='Other' checked={gender ==='Other'} onChange={this.handleChange}/>
+            <label htmlFor="Other">Other</label>
+          </div><br />
+          <small>{gende}</small>
+
+          <br />
+
+          <div className="form-control">
+            <p>Select Your Skills</p>
+            <input type="checkbox" name='html' id='html' onChange={this.handleChange}/>
+            <label htmlFor="html">HTML</label>
+            <input type="checkbox" name='css'id='css' onChange={this.handleChange}/>
+            <label htmlFor="css">CSS</label>
+            <input type="checkbox" name='js' id='js' onChange={this.handleChange}/>
+            <label htmlFor="js">js</label>
+          </div>
+
+          <input type="file" name="file" value={file} onChange={this.handleChange} /><br /><br />
+          <button>Submit</button>
+          </form>
+        </div>
     )
   }
 }
