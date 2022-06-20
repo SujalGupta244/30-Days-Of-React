@@ -1,10 +1,12 @@
-import Navbar from "../Navbar"
-
+import React from 'react';
+import Main from '../main';
 const Header = () =>{
     return (
+        <>
         <div className="header">
-            <Navbar/>
+            <Main/>
         </div>
+        </>
     )
 }
 
