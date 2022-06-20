@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Redirect,
+  Prompt,
+  withRouter,
+} from 'react-router-dom'
 import './App.css';
+
+import Main from './main';
 
 
 const Input = (props)=>{
@@ -87,10 +98,46 @@ const buttonWithStyles = (CompParam, name = 'default') => {
 // const WarningButton = buttonWithStyles(Button, 'warning')
 // const DangerButton = buttonWithStyles(Button, 'danger')
 
+
+const Home = ()=>{
+  return (
+    <div className="home">
+      <h1>This is a Home Page</h1>
+      <p>It will render only in the address bar</p>
+    </div>
+  )
+}
+
+const About = (props) => <h1>About Us</h1>
+// Contact component
+const Contact = (props) => <h1>Contact us</h1>
+// Challenge component
+const Challenges = (props) => (
+  <div>
+    <h1>30 Days Of React Challenge</h1>
+  </div>
+)
+
+const Notfound = (props) => (
+  <div>
+    <h1>Page Not Found</h1>
+  </div>
+)
+
 class App extends Component {
+  state = {
+    isLoggedIn : false
+  }
+
+  handleLogin = ()=>{
+    this.setState({
+      isLoggedIn : !this.state.isLoggedIn
+    })
+  }
   render() {
     return (
-      <div className='App'>
+      // <BrowserRouter>
+        <div className='App'>
         {/* <Button text='No Style' onClick={() => alert('I am not styled yet')} />
         <NewButton
           text='Styled Button'
@@ -110,16 +157,47 @@ class App extends Component {
           text='Danger'
           onClick={() => alert('Oh no, you can not restore it')}
         /> */}
-        <form action="">
+
+        {/* <form action="">
           <Input type='text' label='First Name'/>
           <TextInput label="Last Name"/>
           <EmailInput label="Email"/>
           <NumInput label="Number"/>
           <button>Submit</button>
-        </form>
-      </div>
+        </form> */}
+
+          {/* <ul>
+            <li>
+              <Link to='/'>Home</Link>
+            </li>
+            <br />
+            <li>
+              <Link to='/about'>About</Link>
+            </li>
+            <br />
+            <li>
+              <Link to='/contact'>Contact</Link>
+            </li>
+            <br />
+            <li>
+              <Link to='/contac'>Cont</Link>
+            </li>
+          </ul>
+          <Routes>
+            <Route  element={<Notfound/>} />
+            <Route strict path='/' element={<Home/>}/>
+            <Route exact strict path='/about' element={<About/>} />
+            <Route path='/contact' element={<Contact/>} />
+            <Route path='/challenges' element={<Challenges/>} />
+          </Routes> */}
+
+          <Main/>
+
+        </div>
+      // </BrowserRouter>
     )
   }
 }
+
 
 export default App;
