@@ -1,5 +1,6 @@
 import React , {useState, useEffect} from 'react';
 import ReactDOM , {findDOMNode} from 'react-dom';
+import Main from './main';
 import validator from 'validator';
 import './App.css';
 
@@ -137,7 +138,8 @@ function App() {
       <br />
       {data.map((country) => (
             <Country country={country} />
-          ))}
+      ))}
+      <Main></Main>
   </div>)
 }
 
