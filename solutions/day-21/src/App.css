@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.hexs{
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(9,1fr);
+  grid-gap: 1rem;
+  padding: 2rem;
+}
+
+.hex{
+  border-radius: 0.2rem;
+}
+
+.hex h2{
+  cursor: pointer;
+}

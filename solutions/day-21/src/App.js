@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState, useEffect, useRef} from 'react';
 import ReactDOM , {findDOMNode} from 'react-dom';
 import Main from './main';
 import validator from 'validator';
@@ -51,6 +51,30 @@ const Country = ({ country: { name, flag, population } }) => {
   )
 }
 
+
+const Hex = (props) =>{
+  let copy = useRef(null);
+
+  const onCopy = () =>{
+    copy = props.col;
+    let inp = document.createElement('input');
+    document.body.appendChild(inp)
+    inp.value = copy;
+    inp.select();
+    document.execCommand('copy',false);
+    inp.remove();
+    console.log(copy);
+  }
+  
+  return (
+      <div className="hex" style={{backgroundColor: props.col}}>
+        <p>color</p>
+        <h2 onClick={onCopy}>📋</h2>
+      </div>
+    )
+
+}
+
 function App() {
   const initalState = {
     firstName : '',
@@ -67,7 +91,7 @@ function App() {
   const [data,setData] = useState([])
 
   useEffect(()=>{
-    fetchData();
+    // fetchData();
   })
 
   const fetchData = async () => {
@@ -117,29 +141,57 @@ function App() {
     return errors;
   }
 
-  const error = validate()
+  // const error = validate()
+
+  let colors = [];
+  const [ref,setRef] = useState(colors);
+
+  const addColors = () =>{
+    colors = [];
+    for(let i = 0;i<27;i++){
+      const color = `#${Math.random().toString(16).slice(2,8)}`;
+      colors.push(color);
+    }
+    setRef(colors);
+  }
+  
+  // addColors()
+  const onClick = () => {
+    addColors();
+    // console.log(ref);
+  }
 
   return (
-    <div className="App">
-      <h1>Enter Your Details </h1>
+    <div className="App" onLoad={onClick}>
+      {/* <h1>Enter Your Details </h1>
       <form action="">
         <input type="text" name='firstName' value={formData.firstName} placeholder='Enter First Name' onBlur={handleBlur} onChange={handleChange}/> <br />
         {/* {error.first && <span>{error.first}</span>}<br/> */}
-        {err&& <span>{err}</span>}
-        <input type="text" name='lastName' placeholder='Enter Last Name' value={formData.lastName} onChange={handleChange}/><br />
-        {err&& <span>{err}</span>}
-        <select name="country" id="country" onChange={handleChange}value={formData.country} onBlur={handleBlur}>
-          {options}
-        </select><br />
-        {err&& <span>{err}</span>}
+        {/* {err&& <span>{err}</span>} */}
+        {/* <input type="text" name='lastName' placeholder='Enter Last Name' value={formData.lastName} onChange={handleChange}/><br /> */}
+        {/* {err&& <span>{err}</span>} */}
+        {/* <select name="country" id="country" onChange={handleChange}value={formData.country} onBlur={handleBlur}> */}
+          {/* {options} */}
+        {/* </select><br /> */}
+        {/* {err&& <span>{err}</span>} */}
         {/* {error.count && <span>{error.count}</span>}<br/> */}
-        <button onClick={handleSubmit}>Submit</button>
-      </form>
-      <br />
-      {data.map((country) => (
+        {/* <button onClick={handleSubmit}>Submit</button> */}
+      {/* </form> */}
+      {/* <br /> */} 
+      {/* {data.map((country) => (
             <Country country={country} />
-      ))}
-      <Main></Main>
+      ))} */}
+      {/* <Main></Main> */}
+      {/* <h1 ref={ref}>How to use data from uncontrolled input using useRef</h1> */}
+      {/* <input type='text' ref={ref} /> */}
+      <br />
+      <h1>Hexadecimal Colors</h1>
+      <button onClick={onClick}>Generate</button>
+      <div className="hexs">
+        {ref.map((col,ind) =>{
+          return <Hex key={ind} col={col}/>
+        })}
+      </div>
   </div>)
 }
 
